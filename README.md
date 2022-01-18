@@ -1,4 +1,4 @@
-# origin
+# origin v1.0.0
 
 ## config/local.json
 
