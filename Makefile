@@ -61,7 +61,7 @@ linux-arm64:
 	@echo "Build origin for $(TARGETOS_LINUX) $(TARGETARCH_ARM64)"
 	@GOOS=$(TARGETOS_LINUX) GOARCH=$(TARGETARCH_ARM64) CGO_ENABLED=0 go build -p 8 -o $(OUTPUT)/origin-$(TARGETOS_LINUX)-$(TARGETARCH_ARM64) $(MAIN_SRC_FILE)
 	@echo "Build image $(REGISTRY)/origin-$(TARGETOS_LINUX)-$(TARGETARCH_ARM64):$(VERSION)"
-	@docker build -f $(PROJECT_ROOT)/Dockerfile --build-arg BUILD=$(BUILD) -t $(REGISTRY)/origin-$(TARGETOS_LINUX)-$(TARGETARCH_ARM64):$(VERSION) . >/dev/null
+	@docker build -f $(PROJECT_ROOT)/Dockerfile-arm64 --build-arg BUILD=$(BUILD) -t $(REGISTRY)/origin-$(TARGETOS_LINUX)-$(TARGETARCH_ARM64):$(VERSION) . >/dev/null
 	@echo "Done"
 
 proto:
