@@ -1,13 +1,14 @@
 package handlers
 
 import (
-  "context"
-  "github.com/gitcpu-io/origin/models/ioparams"
-  "github.com/gitcpu-io/origin/services"
-  "github.com/gitcpu-io/zgo"
-  "github.com/kataras/iris/v12"
-  "strings"
-  "time"
+	"context"
+	"strings"
+	"time"
+
+	"github.com/gitcpu-io/origin/models/ioparams"
+	"github.com/gitcpu-io/origin/services"
+	"github.com/gitcpu-io/zgo"
+	"github.com/kataras/iris/v12"
 )
 
 /*
@@ -19,8 +20,8 @@ import (
 
 // SaveWeather 使用MVC模式
 func SaveWeather(ctx iris.Context) {
-  ctx.Values().Set("startTime",zgo.Utils.GetTimestamp(19))
-  // 第一：定义错误返回变量，请求上下文，通过defer来最后响应
+	ctx.Values().Set("startTime", zgo.Utils.GetTimestamp(19))
+	// 第一：定义错误返回变量，请求上下文，通过defer来最后响应
 	var errStr string
 
 	cotx, cancel := context.WithTimeout(context.Background(), 5*time.Second) //you can change this time number
@@ -28,7 +29,7 @@ func SaveWeather(ctx iris.Context) {
 
 	defer func() {
 		if errStr != "" {
-			_, err := zgo.Http.JsonpErr(ctx, errStr)
+			err := zgo.Http.JsonpErr(ctx, errStr)
 			if err != nil {
 				zgo.Log.Error(err)
 			}
@@ -39,7 +40,7 @@ func SaveWeather(ctx iris.Context) {
 	request := &ioparams.WeatherRequest{}
 	if strings.Contains(ctx.GetContentTypeRequested(), "json") {
 		if err := ctx.ReadJSON(request); err != nil {
-			_, err := zgo.Http.JsonpErr(ctx, "json body is error，"+err.Error())
+			err := zgo.Http.JsonpErr(ctx, "json body is error，"+err.Error())
 			if err != nil {
 				errStr = err.Error()
 				zgo.Log.Error(err)
@@ -47,7 +48,7 @@ func SaveWeather(ctx iris.Context) {
 			return
 		}
 	} else {
-		_, err := zgo.Http.JsonpErr(ctx, "pls send application/json")
+		err := zgo.Http.JsonpErr(ctx, "pls send application/json")
 		if err != nil {
 			errStr = err.Error()
 			zgo.Log.Error(err)
@@ -56,7 +57,7 @@ func SaveWeather(ctx iris.Context) {
 	}
 
 	if request.Query == "" {
-		_, err := zgo.Http.JsonpErr(ctx, "查询城市不能为空")
+		err := zgo.Http.JsonpErr(ctx, "查询城市不能为空")
 		if err != nil {
 			errStr = err.Error()
 			zgo.Log.Error(err)
@@ -79,7 +80,7 @@ func SaveWeather(ctx iris.Context) {
 		errStr = "call weather save timeout"
 		zgo.Log.Error(errStr) //通过zgo.Log统计日志
 	default:
-		_, err := zgo.Http.JsonpOK(ctx, res)
+		err := zgo.Http.JsonpOK(ctx, res)
 		if err != nil {
 			zgo.Log.Error(err)
 		}
@@ -89,8 +90,8 @@ func SaveWeather(ctx iris.Context) {
 
 // ListWeather 使用MVC模式
 func ListWeather(ctx iris.Context) {
-  ctx.Values().Set("startTime",zgo.Utils.GetTimestamp(19))
-  // 第一：定义错误返回变量，请求上下文，通过defer来最后响应
+	ctx.Values().Set("startTime", zgo.Utils.GetTimestamp(19))
+	// 第一：定义错误返回变量，请求上下文，通过defer来最后响应
 	var errStr string
 
 	cotx, cancel := context.WithTimeout(context.Background(), 5*time.Second) //you can change this time number
@@ -98,7 +99,7 @@ func ListWeather(ctx iris.Context) {
 
 	defer func() {
 		if errStr != "" {
-			_, err := zgo.Http.JsonpErr(ctx, errStr)
+			err := zgo.Http.JsonpErr(ctx, errStr)
 			if err != nil {
 				zgo.Log.Error(err)
 			}
@@ -127,7 +128,7 @@ func ListWeather(ctx iris.Context) {
 		errStr = "call weather list timeout"
 		zgo.Log.Error(errStr) //通过zgo.Log统计日志
 	default:
-		_, err := zgo.Http.JsonpOK(ctx, res)
+		err := zgo.Http.JsonpOK(ctx, res)
 		if err != nil {
 			zgo.Log.Error(err)
 		}

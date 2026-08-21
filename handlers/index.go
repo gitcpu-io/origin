@@ -2,10 +2,12 @@ package handlers
 
 import (
 	"fmt"
+	"os"
+
 	"github.com/gitcpu-io/origin/configs"
+
 	"github.com/gitcpu-io/zgo"
 	"github.com/kataras/iris/v12"
-	"os"
 )
 
 /*
@@ -95,7 +97,7 @@ func FiveZeroZeroPage(ctx iris.Context) {
 }
 
 func Health(ctx iris.Context) {
-	_, err := ctx.JSONP(map[string]string{
+	err := ctx.JSONP(map[string]string{
 		"health": "true",
 	})
 	if err != nil {

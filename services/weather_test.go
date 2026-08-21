@@ -2,13 +2,14 @@ package services
 
 import (
 	"context"
+	"testing"
+
 	"github.com/gitcpu-io/origin/models/ioparams"
 	"github.com/gitcpu-io/origin/models/weather"
 	"github.com/gitcpu-io/origin/services/mocks"
 	"github.com/golang/mock/gomock"
 	. "github.com/onsi/ginkgo"
 	"github.com/onsi/gomega"
-	"testing"
 )
 
 var _ = Describe("Weather", func() {
@@ -24,7 +25,7 @@ var _ = Describe("Weather", func() {
 
 			svcobj = &svc{}
 			req = &ioparams.WeatherRequest{
-				Query:     "深圳市",
+				Query: "深圳市",
 			}
 		})
 		Context("begin", func() {
@@ -32,9 +33,9 @@ var _ = Describe("Weather", func() {
 				ctrl := gomock.NewController(GinkgoT())
 				client := mocks.NewMockWeatherer(ctrl)
 				var result *weather.Weather
-				client.EXPECT().Insert(gomock.Any(),gomock.Any()).Return(result,nil)
+				client.EXPECT().Insert(gomock.Any(), gomock.Any()).Return(result, nil)
 
-				_, err := s.List(context.TODO(),city)
+				_, err := s.List(context.TODO(), city)
 				gomega.Expect(err).To(gomega.BeNil())
 
 			})
@@ -42,7 +43,7 @@ var _ = Describe("Weather", func() {
 		Context("request", func() {
 			It("htt test", func() {
 
-				_, err := svcobj.dealRequestWeather(context.TODO(),req)
+				_, err := svcobj.dealRequestWeather(context.TODO(), req)
 				gomega.Expect(err).To(gomega.BeNil())
 
 			})
@@ -55,9 +56,9 @@ var _ = Describe("Weather", func() {
 func BenchmarkDealRequestWeather(b *testing.B) {
 	s := &svc{}
 	req := &ioparams.WeatherRequest{
-		Query:     "深圳市",
+		Query: "深圳市",
 	}
 	for i := 0; i < b.N; i++ {
-		s.dealRequestWeather(context.TODO(),req)
+		s.dealRequestWeather(context.TODO(), req)
 	}
 }
