@@ -2,12 +2,13 @@ package services_test
 
 import (
 	"fmt"
-	"github.com/gitcpu-io/zgo"
-	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/gomega"
 	"os"
 	"strings"
 	"testing"
+
+	"github.com/gitcpu-io/zgo"
+	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/gomega"
 )
 
 const (

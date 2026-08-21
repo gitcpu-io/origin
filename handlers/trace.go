@@ -3,9 +3,10 @@ package handlers
 import (
 	"context"
 	"fmt"
+	"time"
+
 	"github.com/gitcpu-io/zgo"
 	"github.com/kataras/iris/v12"
-	"time"
 )
 
 // TraceGet TraceGet接口四板斧，这仅仅是一个例子
@@ -20,7 +21,7 @@ func TraceGet(ctx iris.Context) {
 
 	defer func() {
 		if errStr != "" {
-			_, err := zgo.Http.JsonpErr(ctx, errStr)
+			err := zgo.Http.JsonpErr(ctx, errStr)
 			if err != nil {
 				zgo.Log.Error(err)
 			}
@@ -53,7 +54,7 @@ func TraceGet(ctx iris.Context) {
 		zgo.Log.Error(errStr) //通过zgo.Log统计日志
 		trace.Step("Select Timeout")
 	default:
-		_, err := zgo.Http.JsonpOK(ctx, fmt.Sprintf("OK 后台日志显示，暂停 %s 后显示Trace日志", ms))
+		err := zgo.Http.JsonpOK(ctx, fmt.Sprintf("OK 后台日志显示，暂停 %s 后显示Trace日志", ms))
 		if err != nil {
 			zgo.Log.Error(err)
 		}

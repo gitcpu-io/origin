@@ -3,9 +3,10 @@ package handlers
 import (
 	"context"
 	"fmt"
+	"time"
+
 	"github.com/gitcpu-io/zgo"
 	"github.com/kataras/iris/v12"
-	"time"
 )
 
 type User struct {
@@ -25,7 +26,7 @@ func MongoGet(ctx iris.Context) {
 
 	defer func() {
 		if errStr != "" {
-			_, err := zgo.Http.JsonpErr(ctx, errStr)
+			err := zgo.Http.JsonpErr(ctx, errStr)
 			if err != nil {
 				zgo.Log.Error(err)
 			}
@@ -53,7 +54,7 @@ func MongoGet(ctx iris.Context) {
 		errStr = "call mongo get string timeout"
 		zgo.Log.Error(errStr) //通过zgo.Log统计日志
 	default:
-		_, err := zgo.Http.JsonpOK(ctx, result)
+		err := zgo.Http.JsonpOK(ctx, result)
 		if err != nil {
 			zgo.Log.Error(err)
 		}
@@ -71,7 +72,7 @@ func MongoList(ctx iris.Context) {
 
 	defer func() {
 		if errStr != "" {
-			_, err := zgo.Http.JsonpErr(ctx, errStr)
+			err := zgo.Http.JsonpErr(ctx, errStr)
 			if err != nil {
 				zgo.Log.Error(err)
 			}
@@ -99,7 +100,7 @@ func MongoList(ctx iris.Context) {
 		errStr = "call mongo list string timeout"
 		zgo.Log.Error(errStr) //通过zgo.Log统计日志
 	default:
-		_, err := zgo.Http.JsonpOK(ctx, result)
+		err := zgo.Http.JsonpOK(ctx, result)
 		if err != nil {
 			zgo.Log.Error(err)
 		}

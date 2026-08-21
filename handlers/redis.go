@@ -3,9 +3,10 @@ package handlers
 import (
 	"context"
 	"fmt"
+	"time"
+
 	"github.com/gitcpu-io/zgo"
 	"github.com/kataras/iris/v12"
-	"time"
 )
 
 // RedisGet 接口四板斧，这仅仅是一个例子
@@ -18,7 +19,7 @@ func RedisGet(ctx iris.Context) {
 
 	defer func() {
 		if errStr != "" {
-			_, err := zgo.Http.JsonpErr(ctx, errStr)
+			err := zgo.Http.JsonpErr(ctx, errStr)
 			if err != nil {
 				zgo.Log.Error(err)
 			}
@@ -63,7 +64,7 @@ func RedisGet(ctx iris.Context) {
 		errStr = "call redis get string timeout"
 		zgo.Log.Error(errStr) //通过zgo.Log统计日志
 	default:
-		_, err := zgo.Http.JsonpOK(ctx, result)
+		err := zgo.Http.JsonpOK(ctx, result)
 		if err != nil {
 			zgo.Log.Error(err)
 		}
