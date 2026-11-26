@@ -1,6 +1,6 @@
 module github.com/gitcpu-io/origin
 
-go 1.26
+go 1.26.0
 
 require (
 	github.com/0x19/goesl v0.0.0-20230805100056-48992ef4fdb1
