@@ -1,0 +1,19 @@
+FROM golang:1.26-alpine AS builder
+WORKDIR /src
+COPY . .
+RUN go mod download \
+    && GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -p 8 -o /build/origin-linux-amd64 cmd/main.go
+FROM rubinus/alpine-nb:v1.0
+LABEL maintainer="rubinus.chu@mail.com"
+ARG BUILD
+LABEL VERSION=$BUILD
+WORKDIR /opt/origin/
+COPY --from=builder /build/origin-linux-amd64 /opt/origin/
+COPY entrypoint.sh /opt/origin/
+COPY configs /opt/origin/configs
+COPY web /opt/origin/web
+RUN ["chmod", "+x", "origin-linux-amd64"]
+RUN ["chmod", "+x", "entrypoint.sh"]
+EXPOSE 80
+EXPOSE 50051
+ENTRYPOINT ["/opt/origin/origin-linux-amd64","--env=container"]
